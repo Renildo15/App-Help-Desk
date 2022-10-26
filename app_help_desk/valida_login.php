@@ -1,4 +1,8 @@
 <?php
+    session_start();
+
+    
+
     $usuario_autenticado = false;
     $usuarios_app = array(
         array('email' => 'adm@teste.com.br', 'senha' => '123456'),
@@ -14,9 +18,10 @@
     }
 
     if($usuario_autenticado){
-        echo 'Usuário autenticado';
+            $_SESSION['autenticado'] = "SIM";
     }else{
         header('location: index.php?login=erro');
+            $_SESSION['autenticado'] = "NÃO";
     }
    
 ?>
