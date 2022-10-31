@@ -8,7 +8,19 @@
 
   while(!feof($arquivo)){
     $registro = fgets($arquivo);
-    $chamados[] = $registro;
+
+    $registro_detalhes = explode('#',$registro);
+
+    if($_SESSION['perfil_id'] == 2){
+      if($_SESSION['id'] != $registro_detalhes[0]){
+        continue;
+      }else{
+        $chamados[] = $registro;
+      }
+    }else{
+      $chamados[] = $registro;
+    }
+   
   }
 
   fclose($arquivo);
@@ -56,12 +68,8 @@
               <?php
                 foreach($chamados as $chamado){?>
                   <?php
+                  
                     $chamado_dados = explode('#', $chamado);
-                    if($_SESSION['perfil_id'] == 2){
-                      if($_SESSION['id'] != $chamado_dados[0]){
-                        continue;
-                      }
-                    }
                     if(count($chamado_dados) < 3){
                       continue;
                     }
